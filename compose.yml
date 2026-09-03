@@ -21,18 +21,12 @@ services:
 
   forgejo:
     image: data.forgejo.org/forgejo/forgejo:16-rootless
-    command: >-
-      bash -c '
-      /usr/bin/s6-svscan /etc/s6 &
-      sleep 10 ;
-      su -c "forgejo forgejo-cli actions register --keep-labels --secret 195bd5b2af8d3a0091088d62cd4b313d43be7767" git ;
-      sleep infinity
-      '
+    user: 1000:1000
     environment:
       FORGEJO__security__INSTALL_LOCK: "true"
       #FORGEJO__log__LEVEL: "debug"
     volumes:
-      - /srv/forgejo-data:/data
+      - /srv/forgejo-data:/var/lib/gitea
     networks:
       - reverse-proxy
       - forgejo
