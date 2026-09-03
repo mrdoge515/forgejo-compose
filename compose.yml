@@ -7,6 +7,7 @@ volumes:
   docker_certs:
   forgejo:
   dind:
+  runner:
 
 services:
   docker-in-docker:
@@ -43,7 +44,7 @@ services:
     environment:
       DOCKER_HOST: tcp://docker-in-docker:2376
     volumes:
-      - /srv/runner-data:/data
+      - runner:/data
     user: 0:0
     command: >-
       bash -ec '
@@ -69,7 +70,7 @@ services:
       DOCKER_CERT_PATH: /certs/client
       DOCKER_TLS_VERIFY: "1"
     volumes:
-      - /srv/runner-data:/data
+      - runner:/data
       - docker_certs:/certs
     restart: unless-stopped
     depends_on:
