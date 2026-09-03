@@ -5,6 +5,7 @@ networks:
 
 volumes:
   docker_certs:
+  forgejo:
 
 services:
   docker-in-docker:
@@ -26,7 +27,7 @@ services:
       FORGEJO__security__INSTALL_LOCK: "true"
       #FORGEJO__log__LEVEL: "debug"
     volumes:
-      - /srv/forgejo-data:/var/lib/gitea
+      - forgejo:/var/lib/gitea
     networks:
       - reverse-proxy
       - forgejo
