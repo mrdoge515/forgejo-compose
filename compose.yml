@@ -6,6 +6,7 @@ networks:
 volumes:
   docker_certs:
   forgejo:
+  dind:
 
 services:
   docker-in-docker:
@@ -16,6 +17,7 @@ services:
       DOCKER_TLS_CERTDIR: /certs
       DOCKER_HOST: docker-in-docker
     volumes:
+      - dind:/var/lib/docker
       - docker_certs:/certs
     networks:
       - forgejo
