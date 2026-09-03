@@ -1,6 +1,7 @@
 networks:
   reverse-proxy:
     external: true
+  forgejo:
 
 volumes:
   docker_certs:
@@ -15,6 +16,8 @@ services:
       DOCKER_HOST: docker-in-docker
     volumes:
       - docker_certs:/certs
+    networks:
+      - forgejo
 
   forgejo:
     image: data.forgejo.org/forgejo/forgejo:16.0
@@ -30,10 +33,9 @@ services:
       #FORGEJO__log__LEVEL: "debug"
     volumes:
       - /srv/forgejo-data:/data
-    ports:
-      - 8080:3000
     networks:
       - reverse-proxy
+      - forgejo
 
   # Needed for first run
   runner-register:
@@ -77,3 +79,5 @@ services:
       - runner-register
     command: >-
       forgejo-runner --config config.yml daemon
+    networks:
+      - forgejo
