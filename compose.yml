@@ -22,7 +22,7 @@ services:
     volumes:
       - dind:/var/lib/docker
       - certs:/certs
-    network:
+    networks:
       - forgejo
 
   runner:
