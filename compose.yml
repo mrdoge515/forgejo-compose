@@ -17,8 +17,8 @@ services:
     hostname: docker
     privileged: true
     environment:
-      - DOCKER_TLS_CERTDIR: /certs
-      - DOCKER_HOST: docker-in-docker
+      DOCKER_TLS_CERTDIR: /certs
+      DOCKER_HOST: docker-in-docker
     volumes:
       - dind:/var/lib/docker
       - certs:/certs
